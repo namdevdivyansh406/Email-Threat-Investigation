@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <section class="panel">
-    <h2>Investigation Summary</h2>
-    <p><strong>Filename:</strong> {{ filename }}</p>
-    <p><strong>Saved to:</strong> {{ saved_path }}</p>
+  <section class="panel results-panel">
+    <div class="panel-header">
+      <h2>Investigation Summary</h2>
+      <p>Review the message indicators and export the findings.</p>
+    </div>
+    <div class="metric-strip">
+      <div class="metric-card">
+        <span class="metric-label">Filename</span>
+        <strong>{{ filename }}</strong>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Saved To</span>
+        <strong>{{ saved_path }}</strong>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Overall Status</span>
+        <strong>{{ overall_status }}</strong>
+      </div>
+    </div>
 
     <h3>Headers</h3>
     <ul class="metadata-list">

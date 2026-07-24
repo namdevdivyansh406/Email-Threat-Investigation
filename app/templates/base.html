@@ -7,10 +7,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   </head>
   <body>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+    <div class="floating-orb orb-a"></div>
+    <div class="floating-orb orb-b"></div>
+    <div class="floating-orb orb-c"></div>
+    <div class="floating-card floating-card-a">IOC</div>
+    <div class="floating-card floating-card-b">PDF</div>
+    <div class="floating-card floating-card-c">SPF</div>
     <main class="container">
-      <header>
-        <h1>Email Threat Investigation</h1>
-        <p>Upload an .eml message to inspect its headers, body, and attachments.</p>
+      <header class="hero">
+        <div class="hero-shell">
+          <div class="hero-badge">[ SECURE ANALYSIS ]</div>
+          <p class="eyebrow">Threat Intelligence / Forensics</p>
+          <h1>Email Threat Investigation</h1>
+          <p class="hero-copy">Upload an .eml message to inspect headers, authentication, URLs, attachments, indicators, and generate a professional report.</p>
+          <div class="hero-tags">
+            <span>SPF</span>
+            <span>DKIM</span>
+            <span>DMARC</span>
+            <span>IOC</span>
+          </div>
+        </div>
       </header>
 
       {% with messages = get_flashed_messages(with_categories=true) %}
