@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="panel">
+    <form action="{{ url_for('main.index') }}" method="post" enctype="multipart/form-data">
+      <label for="email_file">Choose an .eml file</label>
+      <input type="file" id="email_file" name="email_file" accept=".eml" required>
+      <button type="submit">Analyze Email</button>
+    </form>
+  </section>
+{% endblock %}

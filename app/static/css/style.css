@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.panel {
+  background: #111827;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+input[type="file"] {
+  padding: 0.5rem 0;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.flash {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.flash.error {
+  background: #7f1d1d;
+}
+
+pre {
+  white-space: pre-wrap;
+  background: #020617;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.risk-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.risk-badge.suspicious {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+.risk-badge.safe {
+  background: #14532d;
+  color: #bbf7d0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #93c5fd;
+}

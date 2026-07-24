@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="panel">
+    <h2>Investigation Summary</h2>
+    <p><strong>Filename:</strong> {{ filename }}</p>
+    <p><strong>Saved to:</strong> {{ saved_path }}</p>
+
+    <h3>Headers</h3>
+    <ul class="metadata-list">
+      {% for key, value in headers %}
+        <li><strong>{{ key }}:</strong> {{ value or '—' }}</li>
+      {% endfor %}
+    </ul>
+
+    <h3>Authentication Analysis</h3>
+    <p><strong>Overall status:</strong> {{ overall_status }}</p>
+    <p>{{ overall_summary }}</p>
+    <ul>
+      {% for name, status, summary, detail in auth_results %}
+        <li><strong>{{ name }}:</strong> {{ status }} - {{ summary }}</li>
+      {% endfor %}
+    </ul>
+
+    <h3>Extracted URLs</h3>
+    {% if urls %}
+      <ul>
+        {% for item in urls %}
+          <li>
+            <strong>{{ item.url }}</strong>
+            {% if item.suspicious %}
+              <span class="risk-badge suspicious">Suspicious</span>
+            {% else %}
+              <span class="risk-badge safe">Safe</span>
+            {% endif %}
+            <br>
+            <span>Risk score: {{ item.risk_score }}/100 ({{ item.risk_level }})</span>
+            {% if item.reasons %}
+              <br>
+              <span>Reasons: {{ item.reasons | join(', ') }}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No URLs detected.</p>
+    {% endif %}
+
+    <h3>IOC Extraction</h3>
+    <form action="{{ url_for('main.export_iocs') }}" method="post">
+      <input type="hidden" name="ioc_data" value="{{ iocs.domains | join('\n') }}\n{{ iocs.ips | join('\n') }}\n{{ iocs.urls | join('\n') }}\n{{ iocs.hashes | join('\n') }}\n{{ iocs.emails | join('\n') }}">
+      <button type="submit">Export IOC list</button>
+    </form>
+    <ul>
+      <li><strong>Domains:</strong> {{ iocs.domains | join(', ') or 'None' }}</li>
+      <li><strong>IP Addresses:</strong> {{ iocs.ips | join(', ') or 'None' }}</li>
+      <li><strong>URLs:</strong> {{ iocs.urls | join(', ') or 'None' }}</li>
+      <li><strong>Hashes:</strong> {{ iocs.hashes | join(', ') or 'None' }}</li>
+      <li><strong>Emails:</strong> {{ iocs.emails | join(', ') or 'None' }}</li>
+    </ul>
+
+    <form action="{{ url_for('main.generate_report') }}" method="post">
+      <input type="hidden" name="report_data" value='{{ report_data_json }}'>
+      <button type="submit">Generate PDF Report</button>
+    </form>
+
+    <h3>Body Preview</h3>
+    <pre>{{ body or 'No body content detected.' }}</pre>
+
+    <h3>Attachments</h3>
+    {% if attachment_details %}
+      <ul>
+        {% for attachment in attachment_details %}
+          <li>
+            <strong>{{ attachment.filename }}</strong>
+            {% if attachment.dangerous %}
+              <span class="risk-badge suspicious">Dangerous extension</span>
+            {% else %}
+              <span class="risk-badge safe">Safe extension</span>
+            {% endif %}
+            <br>
+            <span>Extension: .{{ attachment.extension or 'none' }}</span>
+            <br>
+            <span>Size: {{ attachment.size_human }}</span>
+            <br>
+            <span>SHA256: {{ attachment.sha256 }}</span>
+            <br>
+            <span>MD5: {{ attachment.md5 }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No attachments detected.</p>
+    {% endif %}
+
+    <a class="back-link" href="{{ url_for('main.index') }}">Analyze another email</a>
+  </section>
+{% endblock %}
